@@ -3,7 +3,7 @@ const db = require("../../db/db");
 class OrderController {
 
     async showOrders(req, res) {
-        const queryOrders = `SELECT distinct tradedocid,(SELECT tradedocid from tradedocs where idxtradedoc=td.idxtradedoc_linked) as offerid,DATE(td.datecreation),clients.ne,reference,td.addressdelivery,string_agg(distinct profilecolors.ne,',') as colors,
+        const queryOrders = `SELECT tradedocid,(SELECT tradedocid from tradedocs where idxtradedoc=td.idxtradedoc_linked) as offerid,DATE(td.datecreation),clients.ne,reference,td.addressdelivery,string_agg(distinct profilecolors.ne,',') as colors,
         ROUND(get_order_scanning_progress(td.idxtradedoc,idxproductionpack)) as progress,
         (SELECT distinct DATE(data_datetime) 
             FROM tradedoccustomfieldsintradedocs 
@@ -20,9 +20,9 @@ LEFT JOIN tradedocsitemsunits ON tdi.idxtradedocitem = tradedocsitemsunits.idxtr
 LEFT JOIN productionpacksitems ON tradedocsitemsunits.idxtradedocitemunit = productionpacksitems.idxtradedocitemunit
 LEFT JOIN productionpackstatuses as pps ON td.cntorderstatus = pps.idxproductionpackstatus
 LEFT JOIN users ON td.idxuser_master = users.idxuser
-WHERE td.datecreation>'2021-10-21' AND cntdoctype=3 AND cnttradedocitem=1
+WHERE td.datecreation>'2021-10-21' AND cntdoctype=3 AND cnttradedocitem=1 AND tradedocid!='test'
 GROUP BY clients.ne,td.idxtradedoc,idxproductionpack,pps.ne,users.ne
-ORDER BY DATE(td.datecreation) DESC, tradedocid DESC` ;
+ORDER BY DATE(td.datecreation) DESC,NULLIF(regexp_replace(tradedocid, '\\D', '', 'g'), '')::int DESC,progress DESC` ;
 
         let orders = await db.query(queryOrders).catch(console.log);
 

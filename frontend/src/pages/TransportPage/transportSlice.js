@@ -37,7 +37,7 @@ export const transportSlice = createSlice({
     }
 })
 
-export const { changeTransportOrders } = transportSlice.actions;
+export const { changeTransportOrders, addOrdersToTransport } = transportSlice.actions;
 
 export default transportSlice.reducer
 

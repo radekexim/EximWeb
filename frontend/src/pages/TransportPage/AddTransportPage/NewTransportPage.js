@@ -2,7 +2,7 @@ import { experimentalStyled as styled } from '@mui/material/styles';
 import { Box, Button, Grid, InputAdornment, Paper, TextField, Typography } from "@mui/material";
 import TransportOrderList from './TransportOrderList';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import BasicDatePicker from '../../../components/UI/Elements/BasicDatePicker';
 import TransportList from './TransportList';
 import AddIcon from '@mui/icons-material/Add';
@@ -31,8 +31,6 @@ export default function NewTransportPage(props) {
     const [supplier, setSupplier] = useState('');
     const [truck, setTruck] = useState('');
     const [transportDate, setTransportDate] = useState(new Date());
-    //Model z zaznaczeń w tabeli ze zleceniami
-    const [selectionModel, setSelectionModel] = useState([]);
 
     const fetchData = async (transport) => {
         const response = await axios.post('/addTransport', transport);
@@ -68,7 +66,6 @@ export default function NewTransportPage(props) {
     }
 
     function ResetList() {
-        setSelectionModel([]);
         dispatch(changeTransportOrders([]));
     }
 
@@ -173,7 +170,7 @@ export default function NewTransportPage(props) {
                         </Item>
                     </Grid>
                     <Grid container item xs={4} sm={8} md={12} spacing={2} >
-                        <TransportOrderList selectionmodel={selectionModel} setselectionmodel={setSelectionModel}></TransportOrderList>
+                        <TransportOrderList ></TransportOrderList>
                     </Grid>
                 </Grid>
             </Box >

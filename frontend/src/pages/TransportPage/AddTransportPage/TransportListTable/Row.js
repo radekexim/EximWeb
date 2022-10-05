@@ -4,7 +4,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useState } from "react";
 import { SeverityPill } from "../../../../components/UI/Elements/Severity-Pill";
 import LinearProgressWithLabel from "../../../../components/UI/Elements/LinearProgressWithLabel";
-
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 export default function Row(props) {
     const { row } = props;
     const [open, setOpen] = useState(false);
@@ -51,6 +51,7 @@ export default function Row(props) {
                                         <TableCell align="right">Status</TableCell>
                                         <TableCell align="right">Termin</TableCell>
                                         <TableCell align="right">Wartość</TableCell>
+                                        <TableCell align="right">Akcja</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -80,6 +81,11 @@ export default function Row(props) {
                                             </TableCell>
                                             <TableCell align="right">{Row.weeknumber_realization}</TableCell>
                                             <TableCell align="right">{Row.value_sale}</TableCell>
+                                            <TableCell align="right">
+                                                <IconButton onClick={() => console.log(Row.id)}>
+                                                    <DeleteForeverIcon />
+                                                </IconButton>
+                                            </TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>

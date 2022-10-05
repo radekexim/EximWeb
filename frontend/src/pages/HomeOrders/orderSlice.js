@@ -4,6 +4,7 @@ import { objectToArrayWithId } from '../../helpers/objectOrders';
 
 const initialState = {
     orders: [],
+    complaints: [],
     status: 'idle',
     error: null
 }
@@ -25,7 +26,8 @@ export const orderSlice = createSlice({
             })
             .addCase(fetchOrders.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.orders = action.payload
+                state.orders = action.payload.orders
+                state.complaints = action.payload.complaints
             })
             .addCase(fetchOrders.rejected, (state, action) => {
                 state.status = 'failed'
@@ -37,3 +39,4 @@ export const orderSlice = createSlice({
 export default orderSlice.reducer
 
 export const selectAllOrders = state => state.orders.orders
+export const selectAllComplaints = state => state.orders.complaints
