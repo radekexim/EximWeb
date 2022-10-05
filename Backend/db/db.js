@@ -1,5 +1,6 @@
 const Pool = require("pg").Pool;
 const pg = require('pg');
+require('dotenv').config()
 pg.types.setTypeParser(1114, function (value) {
     return value
 })
@@ -7,11 +8,11 @@ pg.types.setTypeParser(1082, function (value) { //date
     return value;
 });
 const pool = new Pool({
-    user: 'postgres',
-    host: '192.168.10.252',
-    database: 'wincon2022',
-    password: 'postgres',
-    port: '5432'
+    user: process.env.WINCONDB_USER,
+    host: process.env.WINCONDB_HOST,
+    database: process.env.WINCONDB,
+    password: process.env.WINCONDB_PSS,
+    port: process.env.WINCONDB_PORT
 })
 
 module.exports = pool;
