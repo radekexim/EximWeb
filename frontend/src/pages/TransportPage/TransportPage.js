@@ -19,6 +19,7 @@ export default function TransportPage(props) {
     const dispatch = useDispatch();
     const transports = useSelector(selectAllTransports);
     const orderStatus = useSelector(state => state.orders.status);
+    const transportStatus = useSelector(state => state.transports.status)
     const allOrders = useSelector(selectAllOrders);
     const [transportData, setTransportData] = useState([]);
     const [transportInformationToPrint, setTransportInformationToPrint] = useState();
@@ -76,11 +77,11 @@ export default function TransportPage(props) {
     }, [dispatch]);
 
     useEffect(() => {
-        if (orderStatus === 'idle') {
-            fetchData();
+        if (transportStatus === 'idle') {
+            fetchData()
         }
         getTransportData(transports, allOrders);
-    }, [orderStatus, fetchData, transports, allOrders])
+    }, [transportStatus])
 
     return (
         <Paper sx={{ margin: 'auto', overflow: 'hidden', boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)" }}>
