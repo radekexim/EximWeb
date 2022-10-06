@@ -1,5 +1,6 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import React from "react";
+import { v4 as uuid } from 'uuid';
 
 const defaultData = {
     date: '213123',
@@ -43,7 +44,7 @@ export const TransportToPrint = React.forwardRef((props, ref) => {
                     <TableContainer component={Paper} sx={{ marginBottom: '10px' }}>
                         <Table aria-label="collapsible table">
                             <TableHead >
-                                <TableRow>
+                                <TableRow key={uuid()}>
                                     <TableCell >Miejsce</TableCell>
                                     <TableCell >Klient</TableCell>
                                     <TableCell >Adres Dostawy</TableCell>
@@ -69,7 +70,7 @@ export const TransportToPrint = React.forwardRef((props, ref) => {
                     <TableContainer component={Paper}>
                         <Table size="small" aria-label="a dense table">
                             <TableHead>
-                                <TableRow>
+                                <TableRow key={uuid()}>
                                     <TableCell align="left">Zlecenie</TableCell>
                                     <TableCell align="left">Konstrukcje</TableCell>
                                 </TableRow>
@@ -106,8 +107,8 @@ export const TransportToPrint = React.forwardRef((props, ref) => {
                             Nie ukończone
                         </Typography>
                         <Table size="small" aria-label="a dense table">
-                            <TableHead>
-                                <TableRow>
+                            <TableHead >
+                                <TableRow key={uuid()}>
                                     <TableCell align="left" >Zlecenie</TableCell>
                                     <TableCell align="left" >Pozycja</TableCell>
                                     <TableCell align="left" >Konstrukcja</TableCell>
@@ -117,7 +118,7 @@ export const TransportToPrint = React.forwardRef((props, ref) => {
                                 {transport.constructions.filter((row) => row.notFinishConstructions.length > 0).map((row) => (
                                     <>
                                         <TableRow
-                                            key={row.id}
+                                            key={'NOTFINISH' + row.id}
                                             sx={{
                                                 '&:last-child td, &:last-child th': { border: 0 },
                                                 backgroundColor: row.notFinishConstructions.length === 0 ? "#808080" : null,
@@ -128,7 +129,7 @@ export const TransportToPrint = React.forwardRef((props, ref) => {
                                             </TableCell>
                                         </TableRow>
                                         {row.notFinishConstructions.map((position) => (
-                                            <TableRow>
+                                            <TableRow key={uuid()}>
                                                 <TableCell align="left" >
                                                     {position.id}
                                                 </TableCell>

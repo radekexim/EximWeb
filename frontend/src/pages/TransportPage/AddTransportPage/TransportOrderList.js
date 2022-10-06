@@ -6,7 +6,7 @@ import { Box, Grid, IconButton, Tooltip } from '@mui/material';
 import LinearProgressWithLabel from '../../../components/UI/Elements/LinearProgressWithLabel';
 import { SeverityPill } from '../../../components/UI/Elements/Severity-Pill';
 import { useDispatch, useSelector } from 'react-redux';
-import { addOrdersToTransport, changeTransportOrders } from '../transportSlice';
+import { changeTransportOrders, selectAllTransportOrders } from '../transportSlice';
 import FilterBox from './Components/FilterBox';
 import { useEffect, useState } from 'react';
 import { fetchOrders, selectAllOrders } from '../../HomeOrders/orderSlice';
@@ -14,7 +14,9 @@ import AddIcon from '@mui/icons-material/Add';
 
 function DataOrdersTable(props) {
     const dispatch = useDispatch();
+    const transportOrders = useSelector(selectAllTransportOrders);
     const [ordersTransport, setOrdersTransport] = useState(new Set());
+
     const columns = [
         {
             field: "actions",
@@ -104,10 +106,16 @@ function DataOrdersTable(props) {
     function addOrderToTransport(id) {
         let orderSet = new Set(ordersTransport)
         orderSet.add(id);
-        setOrdersTransport(orderSet)
         const selectedRowData = props.orders.filter((row) => orderSet.has(row.id.toString()));
         dispatch(changeTransportOrders(selectedRowData));
     }
+    useEffect(() => {
+        let ordersId = new Set();
+        transportOrders.forEach(el => {
+            ordersId.add(el.id)
+        });
+        setOrdersTransport(ordersId)
+    }, [transportOrders])
 
     return (
         <Paper sx={{ margin: 'auto', overflow: 'hidden', boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)" }}>
@@ -125,7 +133,6 @@ export default function TransportOrderList(props) {
     const [allFilteringOrders, setFilteringOrders] = useState();
     const [orders, setOrders] = useState(allOrders);
     const orderStatus = useSelector(state => state.orders.status)
-    const error = useSelector(state => state.orders.error)
 
     const filterOrders = (ordersTable) => {
         let filteringOrders = ordersTable.filter((order) =>
@@ -141,7 +148,7 @@ export default function TransportOrderList(props) {
             dispatch(fetchOrders())
         }
         filterOrders(allOrders)
-    }, [orderStatus, dispatch])
+    }, [orderStatus, dispatch, allOrders])
 
     return (
         <>

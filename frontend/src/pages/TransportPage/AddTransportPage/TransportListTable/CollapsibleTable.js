@@ -4,7 +4,6 @@ import Row from "./Row";
 
 export default function CollapsibleTable(props) {
 
-
     return (
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
@@ -18,7 +17,7 @@ export default function CollapsibleTable(props) {
                 </TableHead>
                 <TableBody>
                     {props.rows.map((row) => (
-                        <Row key={row.name} row={row} />
+                        <Row key={row.name} row={row} deletefunction={props.deletefunction} />
                     ))}
                 </TableBody>
             </Table>

@@ -82,7 +82,7 @@ export default function Row(props) {
                                             <TableCell align="right">{Row.weeknumber_realization}</TableCell>
                                             <TableCell align="right">{Row.value_sale}</TableCell>
                                             <TableCell align="right">
-                                                <IconButton onClick={() => console.log(Row.id)}>
+                                                <IconButton onClick={() => props.deletefunction(Row.id)}>
                                                     <DeleteForeverIcon />
                                                 </IconButton>
                                             </TableCell>
