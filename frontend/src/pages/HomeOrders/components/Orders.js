@@ -1,12 +1,13 @@
 
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import DataTable from '../../components/UI/Tables/DataTable';
-import Searchbar from '../../components/UI/Elements/Searchbar';
-import LinearProgressWithLabel from '../../components/UI/Elements/LinearProgressWithLabel';
-import { SeverityPill } from '../../components/UI/Elements/Severity-Pill';
+import DataTable from '../../../components/UI/Tables/DataTable';
+import LinearProgressWithLabel from '../../../components/UI/Elements/LinearProgressWithLabel';
+import { SeverityPill } from '../../../components/UI/Elements/Severity-Pill';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { Tooltip } from '@mui/material';
+import FilterOrdersBox from './FilterOrdersBox';
+import { useState } from 'react';
 const columns = [
     { field: 'tradedocid', headerName: 'Id zlecenia', width: 90, headerClassName: 'data-table-header', },
     { field: 'offerid', headerName: 'Id oferty', width: 90, headerClassName: 'data-table-header', },
@@ -84,6 +85,7 @@ const columns = [
 ];
 
 export default function Orders(props) {
+    const [orders, setOrders] = useState(props.orders);
     const navigate = useNavigate();
     const handleRowClick = (params) => {
         navigate({
@@ -94,11 +96,12 @@ export default function Orders(props) {
         });
     }
 
+
     return (
-        <Paper sx={{ margin: 'auto', overflow: 'hidden', my: 1, mx: 1, boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)" }}>
-            <Searchbar reload={props.reload} />
-            <Typography component={'div'} sx={{ my: 2, mx: 2 }} color="text.secondary" align="center">
-                <DataTable columns={columns} rows={props.orders} onRowClick={handleRowClick} />
+        <Paper sx={{ margin: 'auto', overflow: 'hidden', mx: 1, boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)" }}>
+            <FilterOrdersBox orders={props.orders} setorders={setOrders} />
+            <Typography component={'div'} sx={{ my: 1, mx: 2 }} color="text.secondary" align="center">
+                <DataTable columns={columns} rows={orders} onRowClick={handleRowClick} />
             </Typography>
         </Paper>
     );

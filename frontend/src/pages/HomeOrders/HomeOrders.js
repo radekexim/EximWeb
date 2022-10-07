@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import LoadingIcon from '../../components/UI/Elements/LoadingIcon';
-import Orders from './Orders';
+import Orders from './components/Orders';
 import Snackbar from '../../components/UI/Elements/Snackbars';
 import { selectAllOrders, fetchOrders, selectAllComplaints } from './orderSlice';
 import { useDispatch, useSelector } from 'react-redux'
@@ -42,11 +42,11 @@ export default function HomeOrders(props) {
                         </TabList>
                     </Box>
                     <TabPanel value="1">
-                        <Orders orders={orders} reload={() => dispatch(fetchOrders())} />
+                        <Orders orders={orders} />
                         <Snackbar status={orderStatus} />
                     </TabPanel>
                     <TabPanel value="2">
-                        <Orders orders={complaints} reload={() => dispatch(fetchOrders())} />
+                        <Orders orders={complaints} />
                         <Snackbar status={orderStatus} />
                     </TabPanel>
                 </TabContext>

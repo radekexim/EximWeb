@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { objectToArrayWithId } from '../../helpers/objectOrders';
 import axios from '../../axios';
 import { useState } from 'react';
-import Orders from '../HomeOrders/Orders';
+import Orders from '../HomeOrders/components/Orders';
 import LoadingIcon from '../../components/UI/Elements/LoadingIcon';
 
 export default function Search(props) {
