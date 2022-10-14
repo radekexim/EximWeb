@@ -1,8 +1,15 @@
-import { Navigate, Outlet } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
+import { Navigate, Outlet } from 'react-router-dom'
 
-export default function AdminRoute({ children }) {
-    const [auth] = useAuth();
+import useAuth from '../hooks/useAuth'
 
-    return !auth ? (<Navigate to='/Zaloguj' replace />) : (!auth.role ? (<Navigate to='/' replace />) : <Outlet />)
+export default function AdminRoute() {
+  const [auth] = useAuth()
+
+  return !auth ? (
+    <Navigate to='/Zaloguj' replace />
+  ) : !auth.role ? (
+    <Navigate to='/' replace />
+  ) : (
+    <Outlet />
+  )
 }
