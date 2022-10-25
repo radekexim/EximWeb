@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  // eslint-disable-next-line no-undef
+  baseURL: process.env.REACT_APP_DATABASE,
 })
 
 export default instance
